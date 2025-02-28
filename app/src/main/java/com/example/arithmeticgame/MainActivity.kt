@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.btnGuess.isEnabled = false
 
         updateUI()
 
@@ -154,6 +155,7 @@ class MainActivity : AppCompatActivity() {
         } else if (player2Score >= 20) {
             binding.arithmetic.text = "Player 2 Wins!"
             binding.btnRollDie.text = "Press to Play again"
+            binding.btnRollDie.isEnabled = true
             binding.btnRollDie.setOnClickListener() {
                 resetGame()
             }
@@ -185,6 +187,10 @@ class MainActivity : AppCompatActivity() {
         currentPlayer = 1
         updateUI()
         binding.btnRollDie.text = "Roll"
+
+        binding.btnRollDie.setOnClickListener() {
+            rollDie()
+        }
     }
     private fun updateScores() {
         println("Updating UI: Player1 Score: $player1Score, Player2 Score: $player2Score, Jackpot: $jackpot") // Debugging
