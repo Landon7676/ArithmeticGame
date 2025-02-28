@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun rollDie(){
         binding.btnRollDie.isEnabled = false
+        binding.btnGuess.isEnabled = true
 
         val diceValue = Random.nextInt(1,7)
         val imageName = "@drawable/dice$diceValue"
@@ -102,6 +103,8 @@ class MainActivity : AppCompatActivity() {
         val userInput = binding.userInput.text.toString().trim()
         val userAnswer = userInput.toIntOrNull()
 
+        binding.btnGuess.isEnabled = false
+
         println("User Answer: $userAnswer, Correct Answer: $correctAnswer")
 
         if (userAnswer == correctAnswer) {
@@ -139,6 +142,7 @@ class MainActivity : AppCompatActivity() {
         if (player1Score >= 20) {
             binding.arithmetic.text = "Player 1 Wins!"
             binding.btnRollDie.text = "Press to Play again"
+            binding.btnRollDie.isEnabled = true
             binding.btnRollDie.setOnClickListener() {
                 resetGame()
             }
@@ -154,6 +158,7 @@ class MainActivity : AppCompatActivity() {
 
         switchPlayer()
         binding.btnRollDie.isEnabled = true
+
     }
 
 
