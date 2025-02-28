@@ -53,8 +53,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.ivDie.setImageResource(resource)
 
-
-        doublePoints = false
         tryingForJackpot = false
         pointsAmount = 0
 
@@ -73,12 +71,16 @@ class MainActivity : AppCompatActivity() {
             }
             4 -> {
                 doublePoints = true
-                rollDie() // Roll again for double points
+                binding.arithmetic.text = "Double points! Roll again"
+                binding.btnRollDie.isEnabled = true
+                return
             }
             5 -> {
                 switchPlayer()
                 binding.arithmetic.text = "Lose turn, roll the die"
                 binding.btnRollDie.isEnabled = true
+                binding.btnGuess.isEnabled = false
+                doublePoints = false
             }
             6 -> {
                 tryingForJackpot = true
@@ -108,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         println("User Answer: $userAnswer, Correct Answer: $correctAnswer")
 
         if (userAnswer == correctAnswer) {
-            val pointsEarned = if (tryingForJackpot) jackpot else if (doublePoints) 2 else pointsAmount
+            val pointsEarned = if (tryingForJackpot) jackpot else if (doublePoints) pointsAmount * 2 else pointsAmount
 
             if (currentPlayer == 1) {
                 player1Score += pointsEarned
@@ -124,6 +126,8 @@ class MainActivity : AppCompatActivity() {
             if (tryingForJackpot) {
                 jackpot = 5
             }
+            if(doublePoints)
+                doublePoints = false
 
             binding.arithmetic.text = "Correct, roll the die"
         } else {
